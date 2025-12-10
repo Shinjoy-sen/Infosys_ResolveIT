@@ -23,8 +23,7 @@ public class ComplaintController {
 
     private final ComplaintRepository repo;
 
-    // ✔ ALWAYS use absolute path (important fix)
-    //private final Path uploadDir = Path.of("uploads").toAbsolutePath();
+
     private final Path uploadDir = Paths.get(System.getProperty("user.dir"), "uploads");
 
     public ComplaintController(ComplaintRepository repo) throws Exception {

@@ -14,20 +14,20 @@ import java.util.List;
 @Repository
 public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
 
-    // USER: get complaints submitted by a particular user
+    // USER get complaints submitted by a particular user
     List<Complaint> findBySubmittedBy(String submittedBy);
 
-    // ADMIN: Sorted complaints (HIGH → MID → LOW)
+    // ADMIN: Sorted complaints 
     @Query(value = """
             SELECT * FROM complaint
             ORDER BY FIELD(urgency, 'HIGH', 'MID', 'LOW')
             """, nativeQuery = true)
     List<Complaint> findAllSorted();
 
-    // OFFICER: fetch complaints assigned to an officer
+    // fetch complaints assigned to an officer
     List<Complaint> findByAssignedOfficerId(Long officerId);
 
-    // Optional: fetch complaints by status (if needed)
+    // fetch complaints by status 
     List<Complaint> findByStatus(ComplaintStatus status);
 
     List<Complaint> findByStatusInAndCreatedAtBefore(List<String> statuses, LocalDateTime date);

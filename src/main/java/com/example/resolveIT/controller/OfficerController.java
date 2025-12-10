@@ -26,7 +26,7 @@ public class OfficerController {
     @Autowired
     private ComplaintRepository complaintRepo;
 
-    // 1️⃣ OFFICER: Get assigned complaints
+    // OFFICER Get assigned complaints
     @GetMapping("/assigned")
     public List<Complaint> getAssignedComplaints(Authentication auth) {
         String username = auth.getName();
@@ -37,7 +37,7 @@ public class OfficerController {
         return complaintRepo.findByAssignedOfficerId(officer.getId());
     }
 
-    // 2️⃣ OFFICER: Update complaint status & solution note
+    // OFFICER Update complaint status & solution note
     @PostMapping("/update-status")
     public ResponseEntity<?> updateStatus(
             @RequestBody Map<String, String> body,

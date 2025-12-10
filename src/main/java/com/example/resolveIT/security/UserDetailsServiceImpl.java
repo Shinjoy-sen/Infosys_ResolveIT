@@ -20,7 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (opt.isEmpty()) throw new UsernameNotFoundException("User not found");
         User u = opt.get();
 
-        // ⭐ FIX: Add role as Spring Security authority
         List<SimpleGrantedAuthority> authorities =
                 List.of(new SimpleGrantedAuthority("ROLE_" + u.getRole().name()));
 

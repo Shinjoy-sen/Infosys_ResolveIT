@@ -30,15 +30,15 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-public ResponseEntity<?> register(@RequestBody User user) {
-    if (userRepo.existsByUsername(user.getUsername())) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
+    public ResponseEntity<?> register(@RequestBody User user) {
+        if (userRepo.existsByUsername(user.getUsername())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER); // default registration is normal user
+        userRepo.save(user);
+        return ResponseEntity.ok("User registered successfully");
     }
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    user.setRole(Role.USER); // default registration is normal user
-    userRepo.save(user);
-    return ResponseEntity.ok("User registered successfully");
-}
 
 @PostMapping("/register-admin")
 public ResponseEntity<?> registerAdmin(@RequestBody User user) {

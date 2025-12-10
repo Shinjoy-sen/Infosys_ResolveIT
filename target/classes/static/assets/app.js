@@ -1,36 +1,5 @@
 const { createApp, ref, reactive, onMounted } = Vue;
-/*
-//const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1huO7VGuZh63aIdOKRlJaae7dkAHJrxKGWaCNTnBCP1U/export?format=csv&gid=0";
-const SHEET_CSV_URL = "/assets/categories.csv";
 
-async function loadCategoriesMap() {
-  try {
-    const res = await fetch(SHEET_CSV_URL, { cache: "no-store" });
-    if (!res.ok) throw new Error("sheet not ok: " + res.status);
-    const text = await res.text();
-    if (text.trim().startsWith("<")) throw new Error("html instead of csv");
-    const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-    const map = {};
-    for (const line of lines) {
-      const parts = line.split(",");
-      const cat = parts[0].trim();
-      if (!cat || cat.toLowerCase() === "category") continue;
-      const subs = parts.slice(1).map((s) => s.trim()).filter(Boolean);
-      map[cat] = subs.length ? subs : ["General"];
-    }
-    return Object.keys(map).length
-      ? map
-      : { Infrastructure: ["Roads", "Water"], "Public Safety": ["Theft", "Assault"] };
-  } catch (e) {
-    console.warn("categories load failed", e);
-    return {
-      Infrastructure: ["Roads", "Water"],
-      "Public Safety": ["Theft", "Assault"],
-      Services: ["Garbage", "Transport"],
-    };
-  }
-}
-*/
 async function loadCategoriesMap() {
   return {
     "Infrastructure": ["Roads", "Water"],
@@ -46,7 +15,7 @@ async function login(credentials) {
     body: JSON.stringify(credentials),
   });
 
-  // Read response as text (safe for both JSON + plain text)
+  // Read response as text 
   const text = await res.text();
 
   let data;
@@ -76,10 +45,10 @@ async function registerUser(credentials) {
     body: JSON.stringify(credentials),
   });
 
-  // Read response ONCE safely
+  // Read response once safely
   const text = await res.text();
 
-  // Try parsing JSON only once if needed
+  // Try parsing json only once if needed
   let data;
   try {
     data = text ? JSON.parse(text) : {};
@@ -588,7 +557,7 @@ const AdminView = {
   },
 
   methods: {
-    // ---------------- IMAGE HELPER ----------------
+    
     getFirstImage(attachments) {
       if (!attachments) return null;
       const file = attachments.split(",")[0];
@@ -596,7 +565,7 @@ const AdminView = {
       return "/uploads/" + file;
     },
 
-    // mark a complaint as escalated (front-end only)
+    // mark a complaint as escalated
     markEscalated(id) {
       if (!this.escalatedIds.includes(id)) {
         this.escalatedIds.push(id);
@@ -869,7 +838,7 @@ const AdminView = {
       });
     },
 
-    // =============== ESCALATION ACTIONS ===============
+    // ------------ ESCALATION ACTIONS ------------
     async reloadEscalations() {
         await this.loadComplaints();
         alert("Escalations reloaded!");
@@ -941,7 +910,7 @@ const AdminView = {
     </div>
 
 
-    <!-- =============== ANALYTICS TAB =============== -->
+    <!-- ------------ ANALYTICS TAB ------------ -->
     <div v-if="activeTab === 'analytics'" class="bg-white rounded-xl shadow p-6">
       <h2 class="text-2xl font-bold mb-6 text-primary">Analytics</h2>
 
@@ -969,7 +938,7 @@ const AdminView = {
     </div>
 
 
-    <!-- =============== CREATE OFFICER TAB =============== -->
+    <!-- ------------ CREATE OFFICER TAB ------------ -->
     <div v-if="activeTab === 'createOfficer'" class="bg-white rounded-xl p-6 shadow">
       <h2 class="text-xl font-bold mb-4 text-primary">Create Officer Profile</h2>
 
@@ -995,7 +964,7 @@ const AdminView = {
     </div>
 
 
-    <!-- =============== OFFICERS TAB =============== -->
+    <!-- ------------ OFFICERS TAB ------------ -->
     <div v-if="activeTab === 'officers'">
       <h2 class="text-2xl font-bold mb-6 text-primary">Officer Directory</h2>
 
@@ -1025,7 +994,7 @@ const AdminView = {
     </div>
 
 
-    <!-- =============== ESCALATED COMPLAINTS TAB =============== -->
+    <!-- ------------ ESCALATED COMPLAINTS TAB ------------ -->
     <div v-if="activeTab === 'escalations'">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-2xl font-bold text-primary">Escalated Complaints</h2>
@@ -1152,11 +1121,11 @@ const AdminView = {
     </div>
 
 
-    <!-- =============== COMPLAINTS TAB =============== -->
+    <!-- ------------ COMPLAINTS TAB ------------ -->
     <div v-if="activeTab === 'complaints'">
       <h2 class="text-2xl font-bold mb-6 text-primary">Complaints</h2>
 
-      <!-- ============ Pending Complaints ============ -->
+      <!-- ------------ Pending Complaints ------------ -->
       <h3 class="text-lg font-bold mb-3 text-red-600">Pending Complaints</h3>
       <div v-for="c in pendingComplaints" :key="'p-'+c.id" class="bg-white rounded-xl shadow p-4 mb-6">
         <div class="grid grid-cols-3 gap-4">
@@ -1226,7 +1195,7 @@ const AdminView = {
       </div>
 
 
-      <!-- ============ Active Complaints ============ -->
+      <!-- ------------ Active Complaints ------------ -->
       <h3 class="text-lg font-bold mb-3 text-yellow-600">Active Complaints</h3>
       <div v-for="c in activeComplaints" :key="'a-'+c.id" class="bg-white rounded-xl shadow p-4 mb-6">
         <div class="grid grid-cols-3 gap-4">
@@ -1272,7 +1241,7 @@ const AdminView = {
       </div>
 
 
-      <!-- ============ Resolved Complaints ============ -->
+      <!-- ------------ Resolved Complaints ------------ -->
       <h3 class="text-lg font-bold mb-3 text-green-700">Resolved Complaints</h3>
       <div v-for="c in resolvedComplaints" :key="'r-'+c.id" class="bg-white rounded-xl shadow p-4 mb-6">
         <div class="grid grid-cols-3 gap-4">
