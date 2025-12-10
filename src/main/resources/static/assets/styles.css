@@ -1,0 +1,10 @@
+
+:root { --primary: #16a34a; --muted: #64748b; }
+.header-brand { color: var(--primary); font-weight:800; font-size:1.25rem; }
+.card { background:#fff; border-radius:12px; padding:18px; box-shadow:0 10px 30px rgba(2,6,23,0.06); }
+.small { font-size:0.9rem; color:var(--muted); }
+.btn-primary { background:var(--primary); color:white; padding:8px 12px; border-radius:8px; }
+.input { width:100%; padding:8px; border:1px solid #e6e6e6; border-radius:8px; }
+.badge-low { background:#bbf7d0; color:#14532d; padding:4px 8px; border-radius:999px; font-weight:600 }
+.badge-mid { background:#fde68a; color:#92400e; padding:4px 8px; border-radius:999px; font-weight:600 }
+.badge-high { background:#fecaca; color:#7f1d1d; padding:4px 8px; border-radius:999px; font-weight:600 }

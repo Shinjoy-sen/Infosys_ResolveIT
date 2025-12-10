@@ -1,0 +1,1 @@
+package com.example.resolveIT.model; public enum Urgency { LOW, MID, HIGH }
